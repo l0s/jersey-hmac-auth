@@ -25,7 +25,8 @@
         <jersey1.version>1.17.1</jersey1.version>
         <slf4j.version>1.7.5</slf4j.version>
         <java.minimum.version>1.7</java.minimum.version>
-        <jersey2.version>2.22.1</jersey2.version>
+        <!-- use latest Jersey 2.x version compatible with JDK 6 -->
+        <jersey2.version>2.6</jersey2.version>
     </properties>
 
     <distributionManagement>
