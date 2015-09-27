@@ -26,7 +26,6 @@ import com.bazaarvoice.auth.hmac.common.Version;
  *
  * @param <P> The type of principal
  * @see Authenticator
- * @author Carlos Macasaet
  */
 public class PrincipalFactory<P> implements Factory<P> {
 

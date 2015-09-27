@@ -13,12 +13,12 @@ import org.glassfish.jersey.server.internal.inject.AbstractValueFactoryProvider;
 import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
 import org.glassfish.jersey.server.spi.internal.ValueFactoryProvider;
 
+
 /**
  * JAX-RS {@link Feature} to enable HMAC authentication on methods with the
  * {@link HmacAuth} annotation.
  *
  * @param <P> the type of principal used by the application
- * @author Carlos Macasaet
  */
 public class HmacAuthFeature<P> implements Feature {
 
