@@ -24,19 +24,8 @@ public class PizzaResource2 {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public PizzaResource2() {
-        logger.info("Resource is ready");
-    }
-
     @POST
     public void bakePizza(@HmacAuth final Principal principal) {
-        /*
-         * FIXME method is being invoked twice, the first time without the principal
-         * INFO  c.b.a.h.sample.server.PizzaResource2 - Resource is ready
-         * INFO  c.b.a.h.sample.server.PizzaResource2 - Baking a pizza for null.
-         * INFO  c.b.a.hmac.server.PrincipalFactory - Providing principal
-         * INFO  c.b.a.h.sample.server.PizzaResource2 - Baking a pizza for com.bazaarvoice.auth.hmac.sample.server.PizzaAuthenticator$1@3e738a74[name=fred].
-         */
         logger.info("Baking a pizza for {}.", principal);
     }
 

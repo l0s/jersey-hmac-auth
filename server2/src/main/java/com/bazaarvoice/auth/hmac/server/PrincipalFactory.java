@@ -18,8 +18,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.glassfish.hk2.api.Factory;
 import org.glassfish.jersey.server.ContainerRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.bazaarvoice.auth.hmac.common.Credentials.CredentialsBuilder;
 import com.bazaarvoice.auth.hmac.common.Version;
@@ -34,7 +32,6 @@ import com.bazaarvoice.auth.hmac.common.Version;
  */
 public class PrincipalFactory implements Factory<Principal> {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Authenticator<Principal> authenticator;
     private final Provider<ContainerRequest> requestProvider;
 
@@ -46,11 +43,9 @@ public class PrincipalFactory implements Factory<Principal> {
         notNull(authenticator, "authenticator cannot be null");
         this.authenticator = authenticator;
         this.requestProvider = requestProvider;
-        logger.debug("PrincipalFactory is ready");
     }
 
     public Principal provide() {
-        logger.info( "Providing principal" );
         final ContainerRequest request = getRequestProvider().get();
         final UriInfo uriInfo = request.getUriInfo();
         final URI requestUri = uriInfo.getRequestUri();

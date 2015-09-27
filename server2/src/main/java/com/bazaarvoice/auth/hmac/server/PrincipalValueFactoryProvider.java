@@ -41,9 +41,9 @@ public class PrincipalValueFactoryProvider extends AbstractValueFactoryProvider 
         if (auth != null) {
             final Class<?> parameterType = parameter.getRawType();
             // TODO support alternate "principal" types
-            if (!Principal.class.isAssignableFrom(parameterType)) {
+            if (!parameterType.isAssignableFrom(Principal.class)) {
                 logger.error(
-                    "HmacAuth annotation on parameter not of type Principal, insetad on: {}", parameterType);
+                    "HmacAuth annotation on parameter not of type Principal, instead on: {}", parameterType);
                 throw new InternalServerErrorException();
             }
             return getFactory();

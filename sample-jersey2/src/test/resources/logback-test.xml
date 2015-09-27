@@ -1,10 +1,5 @@
 <configuration>
 
-   <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-     <!-- reset all previous level configurations of all j.u.l. loggers -->
-     <resetJUL>true</resetJUL>
-   </contextListener>
-
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <!-- encoders are assigned the type
          ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
@@ -13,10 +8,9 @@
     </encoder>
   </appender>
 
-  <logger name="org.glassfish" level="DEBUG" />
-  <logger name="com.bazaarvoice.auth.hmac.server" level="TRACE" />
+  <logger name="com.bazaarvoice.auth.hmac.server" level="INFO" />
 
-  <root level="warn">
+  <root level="error">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>
