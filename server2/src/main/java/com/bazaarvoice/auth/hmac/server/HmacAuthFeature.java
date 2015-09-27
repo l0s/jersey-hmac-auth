@@ -1,5 +1,7 @@
 package com.bazaarvoice.auth.hmac.server;
 
+import java.security.Principal;
+
 import javax.inject.Singleton;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.FeatureContext;

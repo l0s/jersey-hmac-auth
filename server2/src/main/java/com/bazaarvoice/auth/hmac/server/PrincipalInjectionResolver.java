@@ -3,6 +3,7 @@ package com.bazaarvoice.auth.hmac.server;
 import javax.inject.Singleton;
 
 import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -12,9 +13,11 @@ import org.slf4j.LoggerFactory;
 @Singleton
 public class PrincipalInjectionResolver extends ParamInjectionResolver<HmacAuth> {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     public PrincipalInjectionResolver() {
         super(PrincipalValueFactoryProvider.class);
-        LoggerFactory.getLogger(getClass()).debug("PrincipalInjectionResolver is ready");
+        logger.debug("PrincipalInjectionResolver is ready");
     }
 
     public boolean isMethodParameterIndicator() {
