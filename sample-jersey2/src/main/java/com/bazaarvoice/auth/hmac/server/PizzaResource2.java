@@ -1,7 +1,6 @@
 package com.bazaarvoice.auth.hmac.server;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static org.apache.commons.lang.Validate.notNull;
 
 import java.security.Principal;
 
@@ -29,8 +28,13 @@ public class PizzaResource2 {
 
     @POST
     public void bakePizza(@HmacAuth final Principal principal) {
-        notNull(principal, "principal should not be null");
-        logger.info("Baking a pizza for {}.", principal.getName());
+        /*
+         * FIXME principal being provided after this method is called...
+         * c.b.auth.hmac.server.PizzaResource2 - Resource is ready
+         * c.b.auth.hmac.server.PizzaResource2 - Baking a pizza for null.
+         * c.b.a.hmac.server.PrincipalFactory - Providing principal
+         */
+        logger.info("Baking a pizza for {}.", principal);
     }
 
 }

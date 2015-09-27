@@ -1,7 +1,6 @@
 package com.bazaarvoice.auth.hmac.server;
 
 import static com.bazaarvoice.auth.hmac.common.Credentials.builder;
-import static com.google.common.base.Preconditions.checkArgument;
 import static javax.ws.rs.core.Response.status;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import static org.apache.commons.lang.Validate.notNull;
@@ -11,6 +10,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
@@ -55,7 +55,9 @@ public class PrincipalFactory
         final MultivaluedMap<? super String, ? extends String> queryParameters = uriInfo
                 .getQueryParameters();
         final List<? extends String> apiKeys = queryParameters.get("apiKey");
-        checkArgument(!apiKeys.isEmpty(), "apiKey is required");
+        if (apiKeys == null || apiKeys.isEmpty()) {
+            throw new BadRequestException("apiKey is required");
+        }
 
         final CredentialsBuilder builder = builder();
         builder.withApiKey(!apiKeys.isEmpty() ? apiKeys.get(0) : null);
