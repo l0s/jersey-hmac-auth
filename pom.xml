@@ -165,5 +165,6 @@
         <module>cli</module>
         <module>sample-dropwizard</module>
         <module>server2</module>
+    <module>sample-jersey2</module>
   </modules>
 </project>
