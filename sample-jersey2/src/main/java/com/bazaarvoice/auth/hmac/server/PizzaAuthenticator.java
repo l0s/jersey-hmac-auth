@@ -4,6 +4,7 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 
 import java.security.Principal;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,12 @@ public class PizzaAuthenticator
     private final Principal fred = new Principal() {
         public String getName() {
             return "fred";
+        }
+
+        public String toString() {
+            final ToStringBuilder builder = new ToStringBuilder(this);
+            builder.append("name", getName());
+            return builder.toString();
         }
     };
 
