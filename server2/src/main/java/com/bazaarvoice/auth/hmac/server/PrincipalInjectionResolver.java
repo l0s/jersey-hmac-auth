@@ -15,8 +15,4 @@ public class PrincipalInjectionResolver extends ParamInjectionResolver<HmacAuth>
         super(PrincipalValueFactoryProvider.class);
     }
 
-    public boolean isMethodParameterIndicator() {
-        return true;
-    }
-
 }
