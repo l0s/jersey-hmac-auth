@@ -38,6 +38,7 @@ public class PrincipalFactoryTest {
     private Provider<ContainerRequest> requestProvider;
     @Mock
     private ContainerRequest request;
+
     private PrincipalFactory<String> factory;
 
     @Before
@@ -69,7 +70,7 @@ public class PrincipalFactoryTest {
     @Test
     public final void verifyProvideDeniesAccess() throws URISyntaxException {
         // given
-        final MultivaluedMap<String, String> parameterMap = new MultivaluedHashMap<>();
+        final MultivaluedMap<String, String> parameterMap = new MultivaluedHashMap<String, String>();
         parameterMap.putSingle("apiKey", "invalidApiKey");
 
         final URI uri = new URI("https://api.example.com/path/to/resource?apiKey=invalidApiKey");
@@ -98,7 +99,7 @@ public class PrincipalFactoryTest {
     @Test
     public final void verifyProvideGrantsAccess() throws URISyntaxException {
         // given
-        final MultivaluedMap<String, String> parameterMap = new MultivaluedHashMap<>();
+        final MultivaluedMap<String, String> parameterMap = new MultivaluedHashMap<String, String>();
         parameterMap.putSingle("apiKey", "validApiKey");
 
         final URI uri = new URI("https://api.example.com/path/to/resource?apiKey=validApiKey");
