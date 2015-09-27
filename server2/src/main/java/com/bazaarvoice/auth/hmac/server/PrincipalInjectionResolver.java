@@ -1,5 +1,7 @@
 package com.bazaarvoice.auth.hmac.server;
 
+import javax.inject.Singleton;
+
 import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
 
 /**
@@ -9,14 +11,11 @@ import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
  *
  * @author Carlos Macasaet
  */
+@Singleton
 public class PrincipalInjectionResolver extends ParamInjectionResolver<HmacAuth> {
 
     public PrincipalInjectionResolver() {
         super(PrincipalValueFactoryProvider.class);
-    }
-
-    public boolean isMethodParameterIndicator() {
-        return true;
     }
 
 }
