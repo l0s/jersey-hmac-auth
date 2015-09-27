@@ -10,6 +10,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.core.MultivaluedMap;
@@ -17,7 +18,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.glassfish.hk2.api.Factory;
 import org.glassfish.jersey.server.ContainerRequest;
-import org.glassfish.jersey.server.internal.inject.AbstractContainerRequestValueFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,25 +32,26 @@ import com.bazaarvoice.auth.hmac.common.Version;
  * @see Authenticator
  * @author Carlos Macasaet
  */
-public class PrincipalFactory
-        extends AbstractContainerRequestValueFactory<Principal> {
+public class PrincipalFactory implements Factory<Principal> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Authenticator<Principal> authenticator;
+    private final Provider<ContainerRequest> requestProvider;
 
     /**
      * @param authenticator the application's credential authenticator (required)
      */
     @Inject
-    public PrincipalFactory(final Authenticator<Principal> authenticator) {
+    public PrincipalFactory(final Authenticator<Principal> authenticator, final Provider<ContainerRequest> requestProvider) {
         notNull(authenticator, "authenticator cannot be null");
         this.authenticator = authenticator;
+        this.requestProvider = requestProvider;
         logger.debug("PrincipalFactory is ready");
     }
 
     public Principal provide() {
         logger.info( "Providing principal" );
-        final ContainerRequest request = getContainerRequest();
+        final ContainerRequest request = getRequestProvider().get();
         final UriInfo uriInfo = request.getUriInfo();
         final URI requestUri = uriInfo.getRequestUri();
 
@@ -78,8 +79,16 @@ public class PrincipalFactory
         return retval;
     }
 
+    public void dispose(final Principal instance) {
+    }
+
     protected Authenticator<Principal> getAuthenticator() {
         return authenticator;
+    }
+
+    
+    protected Provider<ContainerRequest> getRequestProvider() {
+        return requestProvider;
     }
 
 }

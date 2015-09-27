@@ -11,7 +11,6 @@ import org.glassfish.hk2.api.InjectionResolver;
 import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.hk2.utilities.Binder;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
-import org.glassfish.jersey.server.internal.inject.AbstractContainerRequestValueFactory;
 import org.glassfish.jersey.server.internal.inject.AbstractValueFactoryProvider;
 import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
 import org.glassfish.jersey.server.spi.internal.ValueFactoryProvider;
@@ -28,7 +27,6 @@ public class HmacAuthFeature implements Feature {
         protected void configure() {
             bind(PrincipalFactory.class)
                     .to(PrincipalFactory.class)
-                    .to(new TypeLiteral<AbstractContainerRequestValueFactory<Principal>>() {})
                     .to(new TypeLiteral<Factory<Principal>>() {})
                     .in(Singleton.class);
             bind(PrincipalValueFactoryProvider.class)
