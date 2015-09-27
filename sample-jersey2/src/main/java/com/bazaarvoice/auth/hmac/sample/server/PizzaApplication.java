@@ -1,8 +1,5 @@
 package com.bazaarvoice.auth.hmac.sample.server;
 
-import static org.slf4j.bridge.SLF4JBridgeHandler.install;
-import static org.slf4j.bridge.SLF4JBridgeHandler.removeHandlersForRootLogger;
-
 import java.security.Principal;
 
 import org.glassfish.hk2.api.TypeLiteral;
@@ -27,9 +24,6 @@ public class PizzaApplication extends ResourceConfig {
     };
 
     public PizzaApplication() {
-        removeHandlersForRootLogger();
-        install();
-
         register(HmacAuthFeature.class);
         register(getPizzaApplicationBinder());
         register(PizzaResource2.class);
