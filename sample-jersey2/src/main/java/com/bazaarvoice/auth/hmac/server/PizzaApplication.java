@@ -3,6 +3,11 @@ package com.bazaarvoice.auth.hmac.server;
 import static org.slf4j.bridge.SLF4JBridgeHandler.install;
 import static org.slf4j.bridge.SLF4JBridgeHandler.removeHandlersForRootLogger;
 
+import java.security.Principal;
+
+import org.glassfish.hk2.api.TypeLiteral;
+import org.glassfish.hk2.utilities.Binder;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +21,20 @@ public class PizzaApplication extends ResourceConfig {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final Binder pizzaApplicationBinder = new AbstractBinder() {
+        protected void configure() {
+            bind(PizzaAuthenticator.class).to(new TypeLiteral<Authenticator<Principal>>() {});
+        }
+    };
+
     public PizzaApplication() {
         removeHandlersForRootLogger();
         install();
 
         logger.info("Registering features and resources");
         register(HmacAuthFeature.class);
-        packages(getClass().getPackage().getName());
+        register(pizzaApplicationBinder);
+        register(PizzaResource2.class);
     }
 
 }
