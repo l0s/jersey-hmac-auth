@@ -8,6 +8,8 @@ import org.glassfish.hk2.api.InjectionResolver;
 import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.hk2.utilities.Binder;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * JAX-RS {@link Feature} to enable HMAC authentication on methods with the
@@ -17,9 +19,12 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
  */
 public class HmacAuthFeature implements Feature {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final Binder binder = new AbstractBinder() {
         protected void configure() {
-            bind(PrincipalFactory.class)
+            logger.info( "Binding providers" );
+            bindFactory(PrincipalFactory.class)
                     .to(PrincipalFactory.class)
                     .in(Singleton.class);
             bind(PrincipalValueFactoryProvider.class)
@@ -32,6 +37,7 @@ public class HmacAuthFeature implements Feature {
     };
 
     public boolean configure(final FeatureContext context) {
+        logger.info( "Configuring FeatureContext: {}", context );
         context.register(getBinder());
         return true;
     }

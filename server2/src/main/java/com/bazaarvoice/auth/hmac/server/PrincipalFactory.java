@@ -18,12 +18,14 @@ import javax.ws.rs.core.UriInfo;
 import org.glassfish.hk2.api.Factory;
 import org.glassfish.jersey.server.ContainerRequest;
 import org.glassfish.jersey.server.internal.inject.AbstractContainerRequestValueFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.bazaarvoice.auth.hmac.common.Credentials.CredentialsBuilder;
 import com.bazaarvoice.auth.hmac.common.Version;
 
 /**
- * {@link Factory} for creating a {@link Principal} from the request.
+ * {@link Factory} for creating a {@link Principal} wherever it is required for a request.
  *
  * @see Authenticator
  * @author Carlos Macasaet
@@ -31,6 +33,7 @@ import com.bazaarvoice.auth.hmac.common.Version;
 public class PrincipalFactory
         extends AbstractContainerRequestValueFactory<Principal> {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Authenticator<Principal> authenticator;
 
     /**
@@ -40,9 +43,11 @@ public class PrincipalFactory
     public PrincipalFactory(final Authenticator<Principal> authenticator) {
         notNull(authenticator, "authenticator cannot be null");
         this.authenticator = authenticator;
+        logger.debug("PrincipalFactory is ready");
     }
 
     public Principal provide() {
+        logger.info( "Providing principal" );
         final ContainerRequest request = getContainerRequest();
         final UriInfo uriInfo = request.getUriInfo();
         final URI requestUri = uriInfo.getRequestUri();
@@ -64,8 +69,10 @@ public class PrincipalFactory
         final Principal retval = getAuthenticator()
                 .authenticate(builder.build());
         if (retval == null) {
+            logger.debug( "Unauthorized request" );
             throw new NotAuthorizedException(status(UNAUTHORIZED).build());
         }
+        logger.trace( "Authorized request" );
         return retval;
     }
 

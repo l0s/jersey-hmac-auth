@@ -23,6 +23,10 @@ public class PizzaResource2 {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
+    public PizzaResource2() {
+        logger.info("Resource is ready");
+    }
+
     @POST
     public void bakePizza(@HmacAuth final Principal principal) {
         notNull(principal, "principal should not be null");

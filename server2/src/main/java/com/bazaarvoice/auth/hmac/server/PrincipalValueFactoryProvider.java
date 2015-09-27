@@ -27,26 +27,29 @@ public class PrincipalValueFactoryProvider extends AbstractValueFactoryProvider 
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final PrincipalFactory factory;
-    
+
     @Inject
     public PrincipalValueFactoryProvider(final MultivaluedParameterExtractorProvider mpep,
             final ServiceLocator locator, final PrincipalFactory factory) {
         super(mpep, locator, UNKNOWN);
         notNull(factory, "factory cannot be null");
         this.factory = factory;
+        logger.debug( "PrincipalValueFactoryProvider is ready" );
     }
 
     protected Factory<Principal> createValueFactory(final Parameter parameter) {
         final HmacAuth auth = parameter.getAnnotation(HmacAuth.class);
         if (auth != null) {
+            logger.debug( "Creating PrincipalValueFactory for parameter: {}", parameter );
             final Class<?> parameterType = parameter.getRawType();
             if (!parameterType.isAssignableFrom(Principal.class)) {
                 logger.error(
-                        "HmacAuth annotation on parameter not of type Principal");
+                    "HmacAuth annotation on parameter not of type Principal, insetad on: {}", parameterType);
                 throw new InternalServerErrorException();
             }
             return getFactory();
         }
+        logger.trace("Not creating factory for: {}", parameter);
         return null;
     }
 
