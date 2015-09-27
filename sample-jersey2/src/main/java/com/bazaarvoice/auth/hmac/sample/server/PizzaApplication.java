@@ -1,4 +1,4 @@
-package com.bazaarvoice.auth.hmac.server;
+package com.bazaarvoice.auth.hmac.sample.server;
 
 import static org.slf4j.bridge.SLF4JBridgeHandler.install;
 import static org.slf4j.bridge.SLF4JBridgeHandler.removeHandlersForRootLogger;
@@ -11,6 +11,9 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.bazaarvoice.auth.hmac.server.Authenticator;
+import com.bazaarvoice.auth.hmac.server.HmacAuthFeature;
 
 /**
  * Jersey 2.x JAX-RS application that demonstrates HMAC authentication.

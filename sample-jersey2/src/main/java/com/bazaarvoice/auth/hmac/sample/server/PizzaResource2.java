@@ -1,4 +1,4 @@
-package com.bazaarvoice.auth.hmac.server;
+package com.bazaarvoice.auth.hmac.sample.server;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -10,6 +10,8 @@ import javax.ws.rs.Produces;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.bazaarvoice.auth.hmac.server.HmacAuth;
 
 /**
  * Jersey 2.x HMAC-authenticated REST resource
