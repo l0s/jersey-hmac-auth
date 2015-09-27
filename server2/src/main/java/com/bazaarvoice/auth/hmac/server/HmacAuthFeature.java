@@ -13,7 +13,6 @@ import org.glassfish.jersey.server.internal.inject.AbstractValueFactoryProvider;
 import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
 import org.glassfish.jersey.server.spi.internal.ValueFactoryProvider;
 
-
 /**
  * JAX-RS {@link Feature} to enable HMAC authentication on methods with the
  * {@link HmacAuth} annotation.
@@ -24,7 +23,7 @@ public class HmacAuthFeature<P> implements Feature {
 
     private final Binder binder = new AbstractBinder() {
         protected void configure() {
-            bind(PrincipalFactory.class)
+            bindFactory(PrincipalFactory.class)
                     .to(PrincipalFactory.class)
                     .to(new TypeLiteral<Factory<P>>() {})
                     .in(Singleton.class);

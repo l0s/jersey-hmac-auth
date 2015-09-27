@@ -29,7 +29,6 @@ import com.bazaarvoice.auth.hmac.common.Version;
  */
 public class PrincipalFactory<P> implements Factory<P> {
 
-    
     private final Authenticator<? extends P> authenticator;
     private final Provider<? extends ContainerRequest> requestProvider;
 
