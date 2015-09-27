@@ -27,6 +27,8 @@ import com.bazaarvoice.auth.hmac.common.Version;
 /**
  * {@link Factory} for creating a {@link Principal} wherever it is required for a request.
  *
+ * TODO support arbitrary "principal" types.
+ *
  * @see Authenticator
  * @author Carlos Macasaet
  */
@@ -71,10 +73,8 @@ public class PrincipalFactory
         final Principal retval = getAuthenticator()
                 .authenticate(builder.build());
         if (retval == null) {
-            logger.debug( "Unauthorized request" );
             throw new NotAuthorizedException(status(UNAUTHORIZED).build());
         }
-        logger.trace( "Authorized request" );
         return retval;
     }
 

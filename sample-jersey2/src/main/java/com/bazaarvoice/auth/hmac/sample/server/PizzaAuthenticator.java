@@ -3,15 +3,17 @@ package com.bazaarvoice.auth.hmac.sample.server;
 import java.security.Principal;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.bazaarvoice.auth.hmac.common.Credentials;
 import com.bazaarvoice.auth.hmac.server.Authenticator;
 
+/**
+ * Dummy {@link Authenticator} implementation that just checks for the apiKey "fred-api-key".
+ *
+ * @author Carlos Macasaet
+ */
 public class PizzaAuthenticator implements Authenticator<Principal> {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final Principal fred = new Principal() {
         public String getName() {
             return "fred";
@@ -24,12 +26,7 @@ public class PizzaAuthenticator implements Authenticator<Principal> {
         }
     };
 
-    public PizzaAuthenticator() {
-        logger.info("Authenticator is ready");
-    }
-
-    public Principal authenticate(Credentials credentials) {
-        logger.info("Loading principal for: {}", credentials);
+    public Principal authenticate(final Credentials credentials) {
         if ("fred-api-key".equals(credentials.getApiKey())) {
             return fred;
         }

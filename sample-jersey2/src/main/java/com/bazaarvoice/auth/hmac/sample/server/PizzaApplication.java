@@ -9,8 +9,6 @@ import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.hk2.utilities.Binder;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.bazaarvoice.auth.hmac.server.Authenticator;
 import com.bazaarvoice.auth.hmac.server.HmacAuthFeature;
@@ -22,8 +20,6 @@ import com.bazaarvoice.auth.hmac.server.HmacAuthFeature;
  */
 public class PizzaApplication extends ResourceConfig {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     private final Binder pizzaApplicationBinder = new AbstractBinder() {
         protected void configure() {
             bind(PizzaAuthenticator.class).to(new TypeLiteral<Authenticator<Principal>>() {});
@@ -34,10 +30,13 @@ public class PizzaApplication extends ResourceConfig {
         removeHandlersForRootLogger();
         install();
 
-        logger.info("Registering features and resources");
         register(HmacAuthFeature.class);
-        register(pizzaApplicationBinder);
+        register(getPizzaApplicationBinder());
         register(PizzaResource2.class);
+    }
+
+    protected Binder getPizzaApplicationBinder() {
+        return pizzaApplicationBinder;
     }
 
 }

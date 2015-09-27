@@ -31,10 +31,11 @@ public class PizzaResource2 {
     @POST
     public void bakePizza(@HmacAuth final Principal principal) {
         /*
-         * FIXME principal being provided after this method is called...
-         * c.b.auth.hmac.server.PizzaResource2 - Resource is ready
-         * c.b.auth.hmac.server.PizzaResource2 - Baking a pizza for null.
-         * c.b.a.hmac.server.PrincipalFactory - Providing principal
+         * FIXME method is being invoked twice, the first time without the principal
+         * INFO  c.b.a.h.sample.server.PizzaResource2 - Resource is ready
+         * INFO  c.b.a.h.sample.server.PizzaResource2 - Baking a pizza for null.
+         * INFO  c.b.a.hmac.server.PrincipalFactory - Providing principal
+         * INFO  c.b.a.h.sample.server.PizzaResource2 - Baking a pizza for com.bazaarvoice.auth.hmac.sample.server.PizzaAuthenticator$1@3e738a74[name=fred].
          */
         logger.info("Baking a pizza for {}.", principal);
     }

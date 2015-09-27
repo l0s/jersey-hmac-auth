@@ -15,8 +15,6 @@ import org.glassfish.jersey.server.internal.inject.AbstractContainerRequestValue
 import org.glassfish.jersey.server.internal.inject.AbstractValueFactoryProvider;
 import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
 import org.glassfish.jersey.server.spi.internal.ValueFactoryProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * JAX-RS {@link Feature} to enable HMAC authentication on methods with the
@@ -26,11 +24,8 @@ import org.slf4j.LoggerFactory;
  */
 public class HmacAuthFeature implements Feature {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     private final Binder binder = new AbstractBinder() {
         protected void configure() {
-            logger.info( "Binding providers" );
             bind(PrincipalFactory.class)
                     .to(PrincipalFactory.class)
                     .to(new TypeLiteral<AbstractContainerRequestValueFactory<Principal>>() {})
@@ -48,7 +43,6 @@ public class HmacAuthFeature implements Feature {
     };
 
     public boolean configure(final FeatureContext context) {
-        logger.info( "Configuring FeatureContext: {}", context );
         context.register(getBinder());
         return true;
     }
