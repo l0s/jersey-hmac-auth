@@ -6,8 +6,7 @@ import org.glassfish.jersey.server.internal.inject.ParamInjectionResolver;
 
 /**
  * {@link org.glassfish.hk2.api.InjectionResolver InjectionResolver} for
- * injecting a {@link java.security.Principal Principal} wherever the
- * {@link HmacAuth} annotation is specified.
+ * injecting a principal wherever the {@link HmacAuth} annotation is specified.
  *
  * @author Carlos Macasaet
  */

@@ -6,7 +6,6 @@ import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import static org.apache.commons.lang.Validate.notNull;
 
 import java.net.URI;
-import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,29 +22,33 @@ import com.bazaarvoice.auth.hmac.common.Credentials.CredentialsBuilder;
 import com.bazaarvoice.auth.hmac.common.Version;
 
 /**
- * {@link Factory} for creating a {@link Principal} wherever it is required for a request.
+ * {@link Factory} for creating a principal wherever it is required for a request.
  *
- * TODO support arbitrary "principal" types.
- *
+ * @param <P> The type of principal
  * @see Authenticator
  * @author Carlos Macasaet
  */
-public class PrincipalFactory implements Factory<Principal> {
+public class PrincipalFactory<P> implements Factory<P> {
 
-    private final Authenticator<Principal> authenticator;
-    private final Provider<ContainerRequest> requestProvider;
+    
+    private final Authenticator<? extends P> authenticator;
+    private final Provider<? extends ContainerRequest> requestProvider;
 
     /**
      * @param authenticator the application's credential authenticator (required)
+     * @param requestProvider object that provides access to the active request
      */
     @Inject
-    public PrincipalFactory(final Authenticator<Principal> authenticator, final Provider<ContainerRequest> requestProvider) {
+    public PrincipalFactory(final Authenticator<P> authenticator,
+            final Provider<ContainerRequest> requestProvider) {
+        // we could technically declare the dependency as Authenticator<? extends P>, but that complicates HK2
+        // dependency-injection
         notNull(authenticator, "authenticator cannot be null");
         this.authenticator = authenticator;
         this.requestProvider = requestProvider;
     }
 
-    public Principal provide() {
+    public P provide() {
         final ContainerRequest request = getRequestProvider().get();
         final UriInfo uriInfo = request.getUriInfo();
         final URI requestUri = uriInfo.getRequestUri();
@@ -66,23 +69,21 @@ public class PrincipalFactory implements Factory<Principal> {
         builder.withMethod(request.getMethod());
         builder.withPath(requestUri.getPath() + "?" + requestUri.getQuery());
 
-        final Principal retval = getAuthenticator()
-                .authenticate(builder.build());
+        final P retval = getAuthenticator().authenticate(builder.build());
         if (retval == null) {
             throw new NotAuthorizedException(status(UNAUTHORIZED).build());
         }
         return retval;
     }
 
-    public void dispose(final Principal instance) {
+    public void dispose(final P instance) {
     }
 
-    protected Authenticator<Principal> getAuthenticator() {
+    protected Authenticator<? extends P> getAuthenticator() {
         return authenticator;
     }
 
-    
-    protected Provider<ContainerRequest> getRequestProvider() {
+    protected Provider<? extends ContainerRequest> getRequestProvider() {
         return requestProvider;
     }
 

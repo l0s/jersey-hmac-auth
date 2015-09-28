@@ -1,7 +1,5 @@
 package com.bazaarvoice.auth.hmac.sample.server;
 
-import java.security.Principal;
-
 import org.glassfish.hk2.api.TypeLiteral;
 import org.glassfish.hk2.utilities.Binder;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -15,17 +13,24 @@ import com.bazaarvoice.auth.hmac.server.HmacAuthFeature;
  *
  * @author Carlos Macasaet
  */
-public class PizzaApplication extends ResourceConfig {
+public class PizzaApplication<P> extends ResourceConfig {
 
     private final Binder pizzaApplicationBinder = new AbstractBinder() {
         protected void configure() {
-            bind(PizzaAuthenticator.class).to(new TypeLiteral<Authenticator<Principal>>() {});
+            // The P parameter is to trick HK2 into injecting the Authenticator where it is needed.
+            bind(PizzaAuthenticator.class).to(new TypeLiteral<Authenticator<P>>() {});
         }
     };
 
     public PizzaApplication() {
-        register(HmacAuthFeature.class);
+        // features
+        // specify your principal type here
+        register(new HmacAuthFeature<String>());
+
+        // dependencies
         register(getPizzaApplicationBinder());
+
+        // resources
         register(PizzaResource2.class);
     }
 

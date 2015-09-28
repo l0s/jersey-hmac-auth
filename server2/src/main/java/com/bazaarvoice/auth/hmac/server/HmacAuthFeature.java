@@ -1,7 +1,5 @@
 package com.bazaarvoice.auth.hmac.server;
 
-import java.security.Principal;
-
 import javax.inject.Singleton;
 import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.FeatureContext;
@@ -19,15 +17,16 @@ import org.glassfish.jersey.server.spi.internal.ValueFactoryProvider;
  * JAX-RS {@link Feature} to enable HMAC authentication on methods with the
  * {@link HmacAuth} annotation.
  *
+ * @param <P> the type of principal used by the application
  * @author Carlos Macasaet
  */
-public class HmacAuthFeature implements Feature {
+public class HmacAuthFeature<P> implements Feature {
 
     private final Binder binder = new AbstractBinder() {
         protected void configure() {
             bind(PrincipalFactory.class)
                     .to(PrincipalFactory.class)
-                    .to(new TypeLiteral<Factory<Principal>>() {})
+                    .to(new TypeLiteral<Factory<P>>() {})
                     .in(Singleton.class);
             bind(PrincipalValueFactoryProvider.class)
                     .to(AbstractValueFactoryProvider.class)

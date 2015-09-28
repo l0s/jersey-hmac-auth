@@ -9,7 +9,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.Principal;
 
 import javax.inject.Provider;
 import javax.ws.rs.BadRequestException;
@@ -34,19 +33,19 @@ import com.bazaarvoice.auth.hmac.common.Credentials;
 public class PrincipalFactoryTest {
 
     @Mock
-    private Authenticator<Principal> authenticator; // TODO support arbitrary principal types
+    private Authenticator<String> authenticator;
     @Mock
     private Provider<ContainerRequest> requestProvider;
     @Mock
     private ContainerRequest request;
-    private PrincipalFactory factory;
+    private PrincipalFactory<String> factory;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
 
         given(requestProvider.get()).willReturn(request);
-        factory = new PrincipalFactory(authenticator, requestProvider);
+        factory = new PrincipalFactory<String>(authenticator, requestProvider);
     }
 
     @Test
@@ -113,14 +112,13 @@ public class PrincipalFactoryTest {
         given(request.getHeaderString("X-Auth-Timestamp")).willReturn("two seconds ago");
         given(request.getMethod()).willReturn("GET");
 
-        final Principal principal = mock(Principal.class);
-        given(authenticator.authenticate(any(Credentials.class))).willReturn(principal);
+        given(authenticator.authenticate(any(Credentials.class))).willReturn("principal");
 
         // when
-        final Principal result = factory.provide();
+        final String result = factory.provide();
 
         // then
-        assertEquals(principal, result);
+        assertEquals("principal", result);
     }
 
 }
