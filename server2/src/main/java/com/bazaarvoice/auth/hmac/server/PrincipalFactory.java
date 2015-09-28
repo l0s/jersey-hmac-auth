@@ -36,7 +36,7 @@ public class PrincipalFactory<P> implements Factory<P> {
 
     /**
      * @param authenticator the application's credential authenticator (required)
-     * @param requestProvider object that provides access to the active request
+     * @param requestProvider object that provides access to the active request (required)
      */
     @Inject
     public PrincipalFactory(final Authenticator<P> authenticator,
