@@ -1,9 +1,5 @@
 package com.bazaarvoice.auth.hmac.sample.server;
 
-import java.security.Principal;
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import com.bazaarvoice.auth.hmac.common.Credentials;
 import com.bazaarvoice.auth.hmac.server.Authenticator;
 
@@ -12,23 +8,11 @@ import com.bazaarvoice.auth.hmac.server.Authenticator;
  *
  * @author Carlos Macasaet
  */
-public class PizzaAuthenticator implements Authenticator<Principal> {
+public class PizzaAuthenticator implements Authenticator<String> {
 
-    private final Principal fred = new Principal() {
-        public String getName() {
-            return "fred";
-        }
-
-        public String toString() {
-            final ToStringBuilder builder = new ToStringBuilder(this);
-            builder.append("name", getName());
-            return builder.toString();
-        }
-    };
-
-    public Principal authenticate(final Credentials credentials) {
+    public String authenticate(final Credentials credentials) {
         if ("fred-api-key".equals(credentials.getApiKey())) {
-            return fred;
+            return "fred";
         }
         return null;
     }

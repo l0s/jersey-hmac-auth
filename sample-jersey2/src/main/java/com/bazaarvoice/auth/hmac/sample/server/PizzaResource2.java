@@ -2,8 +2,6 @@ package com.bazaarvoice.auth.hmac.sample.server;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-import java.security.Principal;
-
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -25,7 +23,7 @@ public class PizzaResource2 {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @POST
-    public void bakePizza(@HmacAuth final Principal principal) {
+    public void bakePizza(@HmacAuth final String principal) {
         logger.info("Baking a pizza for {}.", principal);
     }
 
