@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.bazaarvoice.auth</groupId>
+    <groupId>com.macasaet.auth</groupId>
     <artifactId>jersey-hmac-auth</artifactId>
     <version>0.16-SNAPSHOT</version>
     <packaging>pom</packaging>

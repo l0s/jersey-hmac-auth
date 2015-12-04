@@ -19,7 +19,7 @@ Add this maven dependency:
 
 ```xml
 <dependency>
-    <groupId>com.bazaarvoice.auth</groupId>
+    <groupId>com.macasaet.auth</groupId>
     <artifactId>jersey-hmac-auth-server</artifactId>
     <version>${version}</version>
 </dependency>
@@ -74,7 +74,7 @@ Add this maven dependency:
 
 ```xml
 <dependency>
-    <groupId>com.bazaarvoice.auth</groupId>
+    <groupId>com.macasaet.auth</groupId>
     <artifactId>jersey-hmac-auth-client</artifactId>
     <version>${version}</version>
 </dependency>
@@ -97,7 +97,7 @@ See the [User Guide](https://github.com/bazaarvoice/jersey-hmac-auth/wiki) for m
 To build and run tests locally:
 
 ```sh
-$ git clone git@github.com:bazaarvoice/jersey-hmac-auth.git
+$ git clone git@github.com:l0s/jersey-hmac-auth.git
 $ cd jersey-hmac-auth
 $ mvn clean install
 ```
