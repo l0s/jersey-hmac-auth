@@ -105,3 +105,7 @@ $ mvn clean install
 To submit a new request or issue, please visit the [Issues](https://github.com/bazaarvoice/jersey-hmac-auth/issues) page.
 
 Pull requests are always welcome.
+
+## Continuous Integration
+
+[![Build Status](https://travis-ci.org/l0s/jersey-hmac-auth.png?branch=master)](https://travis-ci.org/l0s/jersey-hmac-auth)
