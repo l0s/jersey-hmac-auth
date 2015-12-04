@@ -11,7 +11,7 @@
 
     <groupId>com.macasaet.auth</groupId>
     <artifactId>jersey-hmac-auth</artifactId>
-    <version>0.16</version>
+    <version>0.17-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <scm>
