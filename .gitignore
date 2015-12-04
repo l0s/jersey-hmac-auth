@@ -21,3 +21,5 @@ reports/
 
 # ignore release.properties during commit phase of maven-release-plugin:prepare
 release.properties
+
+pom.xml.versionsBackup
