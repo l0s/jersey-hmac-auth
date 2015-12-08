@@ -27,8 +27,6 @@ import com.bazaarvoice.auth.hmac.common.Credentials;
 
 /**
  * Test class for {@link PrincipalFactory}.
- *
- * @author Carlos Macasaet
  */
 public class PrincipalFactoryTest {
 

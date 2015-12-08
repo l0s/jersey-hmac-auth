@@ -13,8 +13,6 @@ import com.bazaarvoice.auth.hmac.server.HmacAuth;
 
 /**
  * Jersey 2.x HMAC-authenticated REST resource
- *
- * @author Carlos Macasaet
  */
 @Path("/pizza")
 @Produces(APPLICATION_JSON)

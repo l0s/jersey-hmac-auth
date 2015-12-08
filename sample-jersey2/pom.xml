@@ -8,7 +8,7 @@
     <version>0.17-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <artifactId>sample-jersey2</artifactId>
+  <artifactId>jersey-hmac-auth-sample2</artifactId>
   <packaging>war</packaging>
   <description>Sample Jersey 2 application using jersey-hmac-auth</description>
   <properties>

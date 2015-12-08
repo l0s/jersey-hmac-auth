@@ -17,7 +17,6 @@ import org.glassfish.jersey.server.model.Parameter;
  * request if an {@link HmacAuth} annotation is present.
  *
  * @param <P> the type of principal
- * @author Carlos Macasaet
  */
 public class PrincipalValueFactoryProvider<P> extends AbstractValueFactoryProvider {
 

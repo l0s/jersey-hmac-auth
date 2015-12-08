@@ -10,8 +10,6 @@ import com.bazaarvoice.auth.hmac.server.HmacAuthFeature;
 
 /**
  * Jersey 2.x JAX-RS application that demonstrates HMAC authentication.
- *
- * @author Carlos Macasaet
  */
 public class PizzaApplication<P> extends ResourceConfig {
 

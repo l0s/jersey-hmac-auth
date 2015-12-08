@@ -5,8 +5,6 @@ import com.bazaarvoice.auth.hmac.server.Authenticator;
 
 /**
  * Dummy {@link Authenticator} implementation that just checks for the apiKey "fred-api-key".
- *
- * @author Carlos Macasaet
  */
 public class PizzaAuthenticator implements Authenticator<String> {
 

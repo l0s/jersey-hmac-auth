@@ -23,7 +23,7 @@ public class HmacAuthFeature<P> implements Feature {
 
     private final Binder binder = new AbstractBinder() {
         protected void configure() {
-            bindFactory(PrincipalFactory.class)
+            bind(PrincipalFactory.class)
                     .to(PrincipalFactory.class)
                     .to(new TypeLiteral<Factory<P>>() {})
                     .in(Singleton.class);
